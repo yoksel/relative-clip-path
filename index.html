@@ -1,0 +1,69 @@
+<html>
+<head>
+  <title>Clip-path converter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="demo-svg-container">
+    <svg>
+      <clipPath id="clip-path-before" clipPathUnits="userSpaceOnUse">
+
+      </clipPath>
+      <clipPath id="clip-path-after" clipPathUnits="objectBoundingBox">
+
+      </clipPath>
+    </svg>
+  </div>
+
+  <div class="wrapper">
+    <header class="page-header">
+      <h1>Convert SVG absolute clip-path to relative</h1>
+    </header>
+
+    <div class="container">
+      <h4>Insert clip-path coordinats for <code>userSpaceOnUse</code>:</h4>
+      <textarea
+        id="src-text"
+        placeholder="M 20,20 h 160 v 160 h -80 v -80 h -80 z"
+        spellcheck="false"
+      ></textarea>
+    </div>
+
+    <div class="container">
+      <h4>Take clip-path coordinats for <code>objectBoundingBox</code>:</h4>
+      <textarea
+        id="result-text"
+        placeholder=""
+        spellcheck="false"></textarea>
+    </div>
+
+    <div class="demos">
+      <div class="item">
+        <h2>Src path</h2>
+        <div id="src-container" __hidden>
+          <svg>
+
+          </svg>
+        </div>
+      </div>
+
+      <!-- <div class="item">
+        <h2>Clip path before</h2>
+        <div class="demo demo--before"></div>
+      </div> -->
+
+      <div class="item">
+        <h2>Clip path after</h2>
+        <div class="demo demo--after"></div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <a href="https://github.com/yoksel/relative-clip-path/">Project on GitHub</a>
+      <a href="https://twitter.com/yoksel_en">@yoksel_en</a>
+    </footer>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>

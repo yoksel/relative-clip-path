@@ -1,0 +1,192 @@
+BODY {
+  font: 16px/1.4 "Trebuchet MS", Arial, sans-serif;
+  color: #000;
+}
+
+A {
+  color: steelblue;
+}
+
+H1 {
+  font: 2em/1.4 Georgia, serif;
+  text-align: center;
+  }
+
+H2 {
+  margin: 0;
+  margin-bottom: .15em;
+  font: 1.75em/1.4 Georgia, serif;
+  }
+
+H4 {
+  margin: 0;
+  margin-bottom: .15em;
+  font: 1.3em/1.4 Georgia, serif;
+  }
+
+P {
+  margin: 1.2rem 0;
+  }
+
+TEXTAREA {
+  width: 100%;
+  height: 150px;
+  margin: 0;
+  border: 1px solid #CCC;
+  border-radius: 10px;
+  font-size: 13px;
+  font-family: monospace;
+  }
+
+CODE {
+  padding: 0 3px;
+  background: #EEE;
+  border-radius: 5px;
+  text-shadow: 1px 1px 0 white;
+  font: 14px/1.4 monospace;
+  color: #333;
+  }
+
+CODE I {
+  font-style: italic;
+  color: black;
+  }
+
+.hidden {
+  display: none;
+  }
+
+.visuallyhidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.wrapper {
+  width: 650px;
+  margin: 1.5rem auto 4rem;
+  }
+
+.header {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #CCC;
+}
+
+.footer {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #CCC;
+}
+
+svg {
+  width: 300px;
+  height: 300px;
+  outline: 1px solid #DDD;
+}
+
+#demo-svg-container {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.demos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.item {
+  width: 48%;
+}
+
+.demo {
+  width: 300px;
+  height: 300px;
+}
+.demo--before {
+  background: gold;
+  clip-path: url(#clip-path-before);
+}
+.demo--after {
+  background: yellowgreen;
+  clip-path: url(#clip-path-after);
+}
+
+.options {
+  position: relative;
+}
+
+.options__middle-word {
+  vertical-align: middle;
+  color: #AAA
+}
+
+.options__text {
+  display: inline-block;
+  border-bottom: 1px dashed;
+  color: steelblue;
+  cursor: pointer;
+}
+.options__input:checked + .options__text {
+  border: 0;
+  color: inherit;
+  cursor: default;
+}
+
+.expander {
+  position: relative;
+  z-index: 2;
+}
+
+.expanded {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  left: -15px;
+  padding: 2rem 1.5rem 1rem;
+  background: #FFF;
+  border: 1px solid #CCC;
+  border-radius: 5px;
+  box-shadow: 0 0 0 5px rgba(0,0,0,.1);
+}
+
+.button-example {
+  padding: 0;
+  border: 0;
+  border-bottom: 1px dashed;
+  line-height: 1;
+  align-self: center;
+  font: inherit;
+  font-size: 14px;
+  color: steelblue;
+  cursor: pointer;
+}
+
+.containers {
+  margin-bottom: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  }
+
+.container {
+  position: relative;
+  margin-bottom: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  }
