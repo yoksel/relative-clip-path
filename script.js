@@ -25,7 +25,6 @@ const PathConverter = function (params) {
   this.updateView();
 
   this.srcTextElem.addEventListener('input', () => {
-    console.log('hello');
     this.coords = this.srcTextElem.value;
     this.updateView();
   })
@@ -65,6 +64,12 @@ PathConverter.prototype.addExamples = function () {
     const viewBox = `0 0 ${pathSizes.width} ${pathSizes.height}`;
     svg.setAttribute('viewBox', viewBox);
     control.classList.add('examples__control');
+
+    control.addEventListener('click', () => {
+      this.srcTextElem.value = item;
+      this.coords = this.srcTextElem.value;
+      this.updateView();
+    });
   })
 
   examplesWrapper.classList.remove('visuallyhidden');
