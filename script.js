@@ -175,17 +175,15 @@ PathConverter.prototype.transformValuesByKeys = function (keysList, coords) {
 // ------------------------------
 
 function normalizePathCoords(coords) {
-  console.log(coords);
   let result = coords
     .replace(/([a-z]) /gi, '$1')
     .replace(/([a-z])/gi, ' $1')
     .trim()
     .replace(/\d(-)/gi, ' $1')
+    .replace(/(\d\.\d)(\.\d)/gi, '$1 $2')
     .replace(/,\s{1,}/gi, ',')
     .replace(/\s{1,},/gi, ',')
     .replace(/\s{1,}/gi, ',');
-
-    console.log(result);
 
   return result;
 }
