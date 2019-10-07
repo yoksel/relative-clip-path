@@ -1,4 +1,20 @@
 const PathConverter = function (params) {
+  this.keysListByCommand = {
+    'm': ['x', 'y'],
+    'l': ['x', 'y'],
+
+    'h': ['x'],
+    'v': ['y'],
+
+    'c': ['x', 'y', 'x1', 'y1', 'x2', 'y2'],
+
+    's': ['x', 'y', 'x1', 'y1'],
+    'q': ['x', 'y', 'x1', 'y1'],
+    't': ['x', 'y', 'x1', 'y1'],
+
+    'a': ['rx', 'ry', 'x-axis-rotation', 'large-arc-flag', 'sweep-flag', 'x', 'y']
+  };
+
   this.srcTextElem = params.srcTextElem;
   this.resultTextElem = params.resultTextElem;
   demoTargetElem = params.demoTargetElem;
@@ -89,8 +105,13 @@ PathConverter.prototype.updateView = function () {
   const coordsNormalized = normalizePathCoords(this.coords);
   // Collect all cordinates set from char to next char (next char not includes)
   const coordsList = [...coordsNormalized.matchAll(/[a-z][^(a-z)]{1,}/gi)];
+
   // Convert coordinates to relative
   const coordsTransformed = this.transformCoords(coordsList);
+
+  const coordsListWithoutOffset = this.removeOffset(coordsList);
+  // console.log('coordsList', coordsList)
+  // console.log('coordsListWithoutOffset', coordsListWithoutOffset)
 
   let resultPath = coordsTransformed.join(', ');
   resultPath += ' Z';
@@ -110,31 +131,51 @@ PathConverter.prototype.updateView = function () {
 
 // ------------------------------
 
+PathConverter.prototype.removeOffset = function (coordsList) {
+  // Find minimal value
+  const minXY = coordsList.reduce((prev, item) => {
+    let value = item[0];
+    const itemCommandSrc = value.substring(0,1);
+    const itemCommand = itemCommandSrc.toLowerCase();
+    const itemCoords = value.substring(1).replace(/,$/,'');
+    const valuesList = itemCoords.split(',');
+    const keysList = this.keysListByCommand[itemCommand];
+
+    console.log(itemCommandSrc, valuesList);
+
+    // TODO: check conmmand before handling values
+
+    valuesList.forEach((value, index) => {
+      value = +value;
+      console.log(keysList[index], value)
+
+      if(keysList) {
+        if(keysList[index].includes('x') && value < prev.x) {
+          prev.x = value;
+        }
+        else if(keysList[index].includes('y') && value < prev.y) {
+          prev.y = value;
+        }
+      }
+    })
+
+    return prev;
+  }, { x: 0, y: 0});
+
+  console.log('minXY', minXY)
+}
+
+// ------------------------------
+
 PathConverter.prototype.transformCoords = function (coordsList) {
-  const keysListByCommand = {
-    'm': ['x', 'y'],
-    'l': ['x', 'y'],
-
-    'h': ['x'],
-    'v': ['y'],
-
-    'c': ['x', 'y', 'x1', 'y1', 'x2', 'y2'],
-
-    's': ['x', 'y', 'x1', 'y1'],
-    'q': ['x', 'y', 'x1', 'y1'],
-    't': ['x', 'y', 'x1', 'y1'],
-
-    'a': ['rx', 'ry', 'x-axis-rotation', 'large-arc-flag', 'sweep-flag', 'x', 'y']
-  };
-
   const coordsTransformed = coordsList.map(item => {
     let value = item[0];
     const itemCommandSrc = value.substring(0,1);
     const itemCommand = itemCommandSrc.toLowerCase();
     const itemCoords = value.substring(1).replace(/,$/,'');
 
-    if(keysListByCommand[itemCommand]) {
-      const transformedValsList = this.transformValuesByKeys(keysListByCommand[itemCommand], itemCoords)
+    if(this.keysListByCommand[itemCommand]) {
+      const transformedValsList = this.transformValuesByKeys(this.keysListByCommand[itemCommand], itemCoords)
       value = `${itemCommandSrc}${transformedValsList.join(',')}`;
     }
     else {
