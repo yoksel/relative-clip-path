@@ -4,58 +4,32 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="demo-svg-container">
-    <svg>
-      <clipPath id="clip-path-before" clipPathUnits="userSpaceOnUse">
-
-      </clipPath>
-      <clipPath id="clip-path-after" clipPathUnits="objectBoundingBox">
-
-      </clipPath>
-    </svg>
-  </div>
-
   <div class="wrapper">
     <header class="page-header">
       <h1>Convert SVG absolute clip-path to relative</h1>
     </header>
 
-    <div class="container">
-      <h4>Insert clip-path coordinats for <code>userSpaceOnUse</code>:</h4>
-      <textarea
-        id="src-text"
-        placeholder="M 20,20 h 160 v 160 h -80 v -80 h -80 z"
-        spellcheck="false"
-      ></textarea>
-    </div>
-
-    <div class="container">
-      <h4>Take clip-path coordinats for <code>objectBoundingBox</code>:</h4>
-      <textarea
-        id="result-text"
-        placeholder=""
-        spellcheck="false"></textarea>
-    </div>
-
-    <div class="demos">
-      <div class="item">
-        <h2>Src path</h2>
-        <div id="src-container" __hidden>
-          <svg>
-
-          </svg>
-        </div>
+    <div class="input">
+      <div class="container">
+        <h4>Insert clip-path coordinats for <code>userSpaceOnUse</code>:</h4>
+        <textarea
+          id="src-text"
+          placeholder="M 20,20 h 160 v 160 h -80 v -80 h -80 z"
+          spellcheck="false"
+        ></textarea>
       </div>
 
-      <!-- <div class="item">
-        <h2>Clip path before</h2>
-        <div class="demo demo--before"></div>
-      </div> -->
-
-      <div class="item">
-        <h2>Clip path after</h2>
-        <div class="demo demo--after"></div>
+      <div class="container">
+        <h4>Take clip-path coordinats for <code>objectBoundingBox</code>:</h4>
+        <textarea
+          id="result-text"
+          placeholder=""
+          spellcheck="false"></textarea>
       </div>
+    </div>
+
+    <div class="result">
+
     </div>
 
     <footer class="footer">
@@ -64,6 +38,44 @@
     </footer>
   </div>
 
-<script src="script.js"></script>
+  <template id="demos-tmpl">
+    <div class="demos">
+      <div class="demos__svg-container">
+        <svg>
+          <clipPath id="clip-path-before" clipPathUnits="userSpaceOnUse"></clipPath>
+          <clipPath id="clip-path-after" clipPathUnits="objectBoundingBox"></clipPath>
+        </svg>
+      </div>
+
+      <div class="demos__item">
+        <h2>Src path</h2>
+        <div class="src-container">
+          <svg>
+
+          </svg>
+        </div>
+      </div>
+
+      <div class="demos__item">
+        <h2>Clip path before</h2>
+        <div class="demo demo--before"></div>
+      </div>
+
+      <div class="demos__item">
+        <h2>Clip path after</h2>
+        <div class="demo demo--after"></div>
+      </div>
+    </div>
+  </template>
+
+  <script src="script.js"></script>
+  <script>
+    const pathConverter = new PathConverter({
+      srcTextElem: document.getElementById('src-text'),
+      resultTextElem: document.getElementById('result-text'),
+      demoTargetElem: document.querySelector('.result'),
+      addExamples: true
+    });
+  </script>
 </body>
 </html>

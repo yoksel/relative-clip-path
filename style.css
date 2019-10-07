@@ -32,8 +32,9 @@ TEXTAREA {
   width: 100%;
   height: 150px;
   margin: 0;
+  padding: .5em;
   border: 1px solid #CCC;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 13px;
   font-family: monospace;
   }
@@ -90,26 +91,42 @@ CODE I {
   border-top: 1px solid #CCC;
 }
 
-svg {
-  width: 300px;
-  height: 300px;
-  outline: 1px solid #DDD;
+.examples__control {
+  width: 50px;
+  height: 50px;
+  margin: 4px;
+  padding: 4px;
+  background: #FFF;
+  border: 1px solid #CCC;
+  border-radius: 8px;
 }
 
-#demo-svg-container {
+.examples__control svg {
+  width: 100%;
+  height: 100%;
+}
+
+.demos {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.demos svg {
+  width: 300px;
+  height: 300px;
+  outline: 1px solid #CCC;
+}
+
+.demos__svg-container {
   position: absolute;
   width: 0;
   height: 0;
   overflow: hidden;
 }
 
-.demos {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.item {
+.demos__item {
   width: 48%;
 }
 
