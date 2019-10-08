@@ -170,7 +170,11 @@ PathConverter.prototype.removeOffset = function (coordsList) {
 // ------------------------------
 
 PathConverter.prototype.transformCoords = function (coordsList) {
+  console.log('TRANSFORMCOORDS()');
+  console.log('coordsList', coordsList.length);
   const coordsTransformed = coordsList.map((item, index) => {
+    console.log('\nITEM');
+    console.log(item);
     let value = item[0];
     const itemCommandSrc = value.substring(0,1);
     const itemCommand = itemCommandSrc.toLowerCase();
@@ -181,11 +185,15 @@ PathConverter.prototype.transformCoords = function (coordsList) {
     if(keysList) {
       if(itemCoordsList.length > keysList.length) {
         // Try to fix problem with minified code
+        console.log('Try to fix problem with minified code');
         const cuttedTail = itemCoordsList.splice(keysList.length);
         itemCoords = itemCoordsList.join(',')
-        cuttedTail[0] = [`L${cuttedTail[0]}`];
+        cuttedTail[0] = `L${cuttedTail[0]}`;
 
-        coordsList.splice(index + 1, 0, cuttedTail);
+        console.log('\n cuttedTail');
+        console.log(cuttedTail);
+
+        coordsList.splice(index + 1, 0, [cuttedTail.join(',')]);
       }
 
       const transformedValsList = this.transformValuesByKeys(keysList, itemCoords)
@@ -194,6 +202,7 @@ PathConverter.prototype.transformCoords = function (coordsList) {
     else {
       console.log('Unrecognized command: ', itemCommand);
     }
+    console.log('index', index);
     return value;
   });
 
