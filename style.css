@@ -118,6 +118,8 @@ CODE {
   width: 300px;
   height: 300px;
   outline: 1px solid #CCC;
+  stroke: red;
+  stroke-width: 10;
 }
 
 .demos__svg-container {

@@ -31,7 +31,17 @@ const PathConverter = function (params) {
   this.demoClipPathBefore = demoTargetElem.querySelector('#clip-path-before');
   this.demoClipPathAfter = demoTargetElem.querySelector('#clip-path-after');
 
-  this.srcTextElem.value = `M7.99323063,23.770569 C8.60245134,20.0708435 8.53218102,12.8641513 12.8934239,10.3601081 C15.9115021,8.62725394 19.7744592,8.97804242 22.9494727,7.55295706 C27.4441628,5.535543 43.7516951,-7.04013222 47.6239609,5.47634294 C52.731012,21.9840626 21.7088874,28.9687522 15.471095,33.2711428 C10.9288073,36.4040934 9.14028003,42.6854149 4.49404599,45.6620348 C-1.03436165,49.2038212 -0.938687985,44.1537511 1.96206556,35.3924208 C3.08079829,32.0134412 5.55502725,29.2469435 7.35150809,26.1742049 L7.99323063,23.770569 M70.6977364,4.41159691 C67.2596437,10.5637481 65.5491376,18.0737618 60.3834584,22.8680504 C55.6315892,27.2782803 48.0991473,27.258854 42.5209833,30.5625603 C39.7651304,32.1947332 38.5944055,35.8653508 35.7988114,37.428478 C17.9490101,47.409008 19.857998,40.9919261 9.86038652,53.8683826 C6.21096363,58.5686688 -1.22735803,64.9849949 5.3770562,72.0871421 C18.9408468,86.6731497 35.3585815,53.1614065 44.6823048,45.9936771 C51.1364604,41.0319638 60.1329559,48.8681695 65.9690113,43.4699107 C69.9966433,39.7444149 82.2787377,12.4481425 82.7646869,12.1533376 C86.0333725,10.1703638 90.6710973,13.5817062 94.2340654,12.1954346 C95.6535018,11.6431635 95.2975595,8.85448172 94.3932126,7.62893701 C92.8219413,5.49959562 90.1030858,4.47155466 87.7064638,3.34941777 C82.4334641,0.880514665 80.539776,1.77258609 74.8504512,2.16197439 L70.6977364,4.41159691 M96.9277599,16.3522565 C92.9078684,26.3769576 90.5855173,32.0492714 89.9607067,33.369198 C82.5975387,48.9240574 73.7246823,45.4144317 60.7207478,50.672091 C54.7500663,53.086115 47.6666348,55.974047 39.9489594,63.3843578 C34.2361397,68.8696584 29.510349,75.3541674 23.5932488,80.6184582 C22.5372959,81.5579121 -8.45929709,93.0182861 8.0897457,100.081646 C36.4748498,112.1968 56.7191748,94.1105247 77.2458731,77.0006832 C87.9435658,68.0837193 96.5980404,65.9526569 103.218181,53.513125 C109.666608,41.3962511 123.758307,21.4409352 112.186382,7.92772303 C111.716327,7.37881255 121.842509,10.0382201 110.084099,7.3979169 C102.245158,5.63771477 97.8597122,8.62249462 96.9277599,16.3522565 M117.845861,49.910238 C100.541813,55.9776829 108.357271,82.1176539 94.9194251,91.0395188 C87.8348844,95.7431978 79.8958511,99.2504958 71.7727499,101.766553 C59.470996,105.576909 46.3611129,106.276742 34.0050686,109.907188 C29.5932177,111.203475 23.3887676,112.100371 21.8518705,116.434276 C20.8073182,119.379816 27.9310345,118.126499 31.054685,118.226992 C37.0131748,118.418688 43.0265462,118.231873 48.91562,117.304965 C70.6664864,113.881499 51.3221005,113.737218 72.8570043,106.300707 C91.0940678,100.003019 88.8296239,108.600788 105.170558,90.3736674 C110.957207,83.9190822 129.545777,62.9256087 120.242823,52.9638105 L117.845861,49.910238 M110.420361,97.3150518 C106.871037,101.271827 95.1746101,106.518129 99.7723876,109.185379 L98.3256883,115.664209 C101.264056,117.368807 125.100756,112.143405 119.584672,104.981839 C117.371078,102.107916 113.935118,100.429887 111.110341,98.1539115 L110.420361,97.3150518 Z`;
+  this.srcTextElem.value = `M202.098 12.935l-42.882 132.467H18.392c-9.724 0-17.442 8.456-17.442 18.26a17.78 17.78 0 007.54 14.542c2.814 1.907 113.747 82.948 113.747 82.948S79.632 391.987 78.806 394.073c-.63 1.907-1.083 4.001-1.083 6.175 0 9.813 7.897 17.718 17.622 17.718 3.726 0 7.178-1.181 10.087-3.175L219 319.106s112.717 95.076 113.569 95.685c2.899 1.994 6.361 3.175 10.078 3.175 9.725 0 17.63-7.994 17.63-17.718 0-2.174-.45-4.268-1.092-6.175-.815-2.086-43.421-132.921-43.421-132.921s110.924-81.041 113.744-82.948c4.543-3.185 7.542-8.543 7.542-14.63 0-9.717-7.542-18.172-17.267-18.172H278.961L235.892 12.935C233.81 5.482 227.081.034 219 .034c-8.091 0-14.808 5.448-16.902 12.901z`;
+  // this.srcTextElem.value = `M202.098 12.935l-42.882 132.467
+  // H18.392
+  // c-9.724 0-17.442 8.456-17.442 18.26
+  // a17.78 17.78 0 007.54 14.542
+
+  //   S79.632 391.987 78.806 394.073
+
+  //   c2.899 1.994 6.361 3.175 10.078 3.175 9.725 0 17.63-7.994 17.63-17.718 0-2.174-.45-4.268-1.092-6.175-.815-2.086-43.421-132.921-43.421-132.921s110.924-81.041 113.744-82.948c4.543-3.185 7.542-8.543 7.542-14.63 0-9.717-7.542-18.172-17.267-18.172
+  //     H278.961L235.892 12.935C233.81 5.482 227.081.034 219 .034c-8.091 0-14.808 5.448-16.902 12.901z`;
+
   this.coords = this.srcTextElem.value;
 
   if(addExamples) {
@@ -170,12 +180,12 @@ PathConverter.prototype.removeOffset = function (coordsList) {
 // ------------------------------
 
 PathConverter.prototype.transformCoords = function (coordsList) {
-  console.log('TRANSFORMCOORDS()');
-  console.log('coordsList', coordsList.length);
+  const coordsTransformed = [];
+  const max = 5000;
+  let counter = 0;
 
-  const coordsTransformed = coordsList.map((item, index) => {
-    console.log('\nITEM');
-    console.log(item);
+  while(coordsList.length > 0 && counter < max) {
+    const item = coordsList.shift();
     let value = item[0];
     const itemCommandSrc = value.substring(0,1);
     const itemCommand = itemCommandSrc.toLowerCase();
@@ -185,16 +195,18 @@ PathConverter.prototype.transformCoords = function (coordsList) {
 
     if(keysList) {
       if(itemCommand !== 'l' && itemCoordsList.length > keysList.length) {
-        // Try to fix problem with minified code
-        console.log('Try to fix problem with minified code');
+        // Fix problem with long commands (A, C)
         const cuttedTail = itemCoordsList.splice(keysList.length);
         itemCoords = itemCoordsList.join(',')
-        cuttedTail[0] = `L${cuttedTail[0]}`;
 
-        console.log('\n cuttedTail');
-        console.log(cuttedTail);
-
-        coordsList.splice(index + 1, 0, [cuttedTail.join(',')]);
+        if(cuttedTail.length % keysList.length === 0) {
+          // Move part of command to the next item
+          cuttedTail[0] = `${itemCommandSrc}${cuttedTail[0]}`;
+          coordsList.unshift([cuttedTail.join(',')]);
+        }
+        else {
+          console.log('\ncommand is broken\n');
+        }
       }
 
       const transformedValsList = this.transformValuesByKeys(keysList, itemCoords, itemCommand)
@@ -203,10 +215,10 @@ PathConverter.prototype.transformCoords = function (coordsList) {
     else {
       console.log('Unrecognized command: ', itemCommand);
     }
-    // console.log('index', index);
-    console.log('value', value);
-    return value;
-  });
+
+    coordsTransformed.push(value);
+    counter++;
+  }
 
   return coordsTransformed;
 }
@@ -215,11 +227,13 @@ PathConverter.prototype.transformCoords = function (coordsList) {
 
 PathConverter.prototype.transformValuesByKeys = function (keysList, coords, itemCommand) {
   const valuesList = coords.split(',');
+
   const transformedValuesList = valuesList.map((item, index) => {
     if(!isFinite(item)) {
-      console.log('not finite item:', item);
-      return '';
+      console.log('Not finite item:', item);
+      return item;
     }
+
     if(!keysList[index] && itemCommand === 'l') {
       // L lets use more than two coords
       if(index % 2 == 0) {
@@ -229,13 +243,16 @@ PathConverter.prototype.transformValuesByKeys = function (keysList, coords, item
         return item/this.pathSizes.height;
       }
     }
+
     if(keysList[index].includes('rotation')|| keysList[index].includes('flag')) {
       return item;
     }
-    else if(keysList[index].includes('x')) {
+
+    if(keysList[index].includes('x')) {
       return item/this.pathSizes.width;
     }
-    else if(keysList[index].includes('y')) {
+
+    if(keysList[index].includes('y')) {
       return item/this.pathSizes.height;
     }
 
@@ -252,8 +269,10 @@ function normalizePathCoords(coords) {
     .replace(/([a-z]) /gi, '$1')
     .replace(/([a-z])/gi, ' $1')
     .trim()
-    .replace(/\d(-)/gi, ' $1')
+    .replace(/(\d{1,})(-)/gi, '$1 $2')
     .replace(/(\d{1,}\.\d{1,})(\.\d{1,})/gi, '$1 $2')
+    .replace(/\s00/gi, ' 0 0 ')
+
     .replace(/,\s{1,}/gi, ',')
     .replace(/\s{1,},/gi, ',')
     .replace(/\s{1,}/gi, ',');
