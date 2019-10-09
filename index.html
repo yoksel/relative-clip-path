@@ -11,7 +11,15 @@
 
     <div class="input">
       <div class="container">
-        <h4>Insert clip-path coordinats for <code>userSpaceOnUse</code>:</h4>
+        <header class="container__header">
+          <h4>Insert clip-path coordinats for <code>userSpaceOnUse</code>:</h4>
+          <label class="container__label">
+            <input
+              type="checkbox"
+              id="remove-offsets-control">
+              Remove offset
+          </label>
+        </header>
         <textarea
           id="src-text"
           placeholder="M 20,20 h 160 v 160 h -80 v -80 h -80 z"
