@@ -66,7 +66,8 @@ CODE {
 }
 
 .wrapper {
-  width: 650px;
+  min-width: 600px;
+  max-width: 900px;
   margin: 1.5rem auto 4rem;
   }
 
@@ -86,9 +87,16 @@ CODE {
   border-top: 1px solid #CCC;
 }
 
+.examples__container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -4px;
+}
+
 .examples__control {
-  width: 50px;
-  height: 50px;
+  flex-basis: 40px;
+  height: 40px;
+  flex-shrink: 0;
   margin: 4px;
   padding: 4px;
   background: #FFF;
@@ -115,11 +123,11 @@ CODE {
 }
 
 .demos svg {
-  width: 300px;
+  width: 100%;
   height: 300px;
   outline: 1px solid #CCC;
-  stroke: red;
-  stroke-width: 10;
+  /*stroke: red;
+  stroke-width: 10;*/
 }
 
 .demos__svg-container {
@@ -130,20 +138,26 @@ CODE {
 }
 
 .demos__item {
-  width: 48%;
+  width: 30%;
+  box-sizing: border-box;
 }
 
 .demo {
-  width: 300px;
+  width: 100%;
+  outline: 1px solid #CCC;
+}
+
+.demo__target {
+  width: 100%;
   height: 300px;
   background: url(https://source.unsplash.com/600x600?summer);
   background-size: cover;
 }
-.demo--before {
+.demo__target--before {
   background-color: gold;
   clip-path: url(#clip-path-before);
 }
-.demo--after {
+.demo__target--after {
   background-color: yellowgreen;
   clip-path: url(#clip-path-after);
 }
@@ -184,18 +198,6 @@ CODE {
   border: 1px solid #CCC;
   border-radius: 5px;
   box-shadow: 0 0 0 5px rgba(0,0,0,.1);
-}
-
-.button-example {
-  padding: 0;
-  border: 0;
-  border-bottom: 1px dashed;
-  line-height: 1;
-  align-self: center;
-  font: inherit;
-  font-size: 14px;
-  color: steelblue;
-  cursor: pointer;
 }
 
 .containers {
