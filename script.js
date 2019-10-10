@@ -35,18 +35,18 @@ const examples = {
     `M89.118.892l23.177 83.96 62.052-61.123.657 87.098 75.757-42.98-21.908 84.3 84.3-21.908-42.98 75.757 87.098.657-61.123 62.052 83.96 23.177-75.1 44.118 75.1 44.118-3.195.882H0V4.087L.882.892 45 75.992z`,
   ],
   prod: [
-    `M281.5 0L563 563H0z`,
-    `M276.5 444.707l-170.752 80.812 24.093-187.367L.218 200.731l185.642-34.987L276.5 0l90.64 165.744 185.642 34.987-129.623 137.421 24.093 187.367z`,
-    `M269 0l190.212 78.788L538 269l-78.788 190.212L269 538 78.788 459.212 0 269 78.788 78.788z`,
-    `M381.5 585.822L279.396 762.558l-.057-204.11-176.793 102.006L204.552 483.66l-204.11-.057L177.178 381.5.442 279.396l204.11-.057-102.006-176.793L279.34 204.552l.057-204.11L381.5 177.178 483.604.442l.057 204.11 176.793-102.006L558.448 279.34l204.11.057L585.822 381.5l176.736 102.104-204.11.057 102.006 176.793L483.66 558.448l-.057 204.11z`,
+    // `M281.5 0L563 563H0z`,
+    // `M276.5 444.707l-170.752 80.812 24.093-187.367L.218 200.731l185.642-34.987L276.5 0l90.64 165.744 185.642 34.987-129.623 137.421 24.093 187.367z`,
+    // `M269 0l190.212 78.788L538 269l-78.788 190.212L269 538 78.788 459.212 0 269 78.788 78.788z`,
+    // `M381.5 585.822L279.396 762.558l-.057-204.11-176.793 102.006L204.552 483.66l-204.11-.057L177.178 381.5.442 279.396l204.11-.057-102.006-176.793L279.34 204.552l.057-204.11L381.5 177.178 483.604.442l.057 204.11 176.793-102.006L558.448 279.34l204.11.057L585.822 381.5l176.736 102.104-204.11.057 102.006 176.793L483.66 558.448l-.057 204.11z`,
     `M32 18.451l-16-12.42-16 12.42v-5.064l16-12.42 16 12.42zM28 18v12h-8v-8h-8v8h-8v-12l12-9z`,
-    `M15 0v0c8.284 0 15 5.435 15 12.139s-6.716 12.139-15 12.139c-0.796 0-1.576-0.051-2.339-0.147-3.222 3.209-6.943 3.785-10.661 3.869v-0.785c2.008-0.98 3.625-2.765 3.625-4.804 0-0.285-0.022-0.564-0.063-0.837-3.392-2.225-5.562-5.625-5.562-9.434 0-6.704 6.716-12.139 15-12.139zM31.125 27.209c0 1.748 1.135 3.278 2.875 4.118v0.673c-3.223-0.072-6.181-0.566-8.973-3.316-0.661 0.083-1.337 0.126-2.027 0.126-2.983 0-5.732-0.805-7.925-2.157 4.521-0.016 8.789-1.464 12.026-4.084 1.631-1.32 2.919-2.87 3.825-4.605 0.961-1.84 1.449-3.799 1.449-5.825 0-0.326-0.014-0.651-0.039-0.974 2.268 1.873 3.664 4.426 3.664 7.24 0 3.265-1.88 6.179-4.82 8.086-0.036 0.234-0.055 0.474-0.055 0.718z`,
+    // `M15 0v0c8.284 0 15 5.435 15 12.139s-6.716 12.139-15 12.139c-0.796 0-1.576-0.051-2.339-0.147-3.222 3.209-6.943 3.785-10.661 3.869v-0.785c2.008-0.98 3.625-2.765 3.625-4.804 0-0.285-0.022-0.564-0.063-0.837-3.392-2.225-5.562-5.625-5.562-9.434 0-6.704 6.716-12.139 15-12.139zM31.125 27.209c0 1.748 1.135 3.278 2.875 4.118v0.673c-3.223-0.072-6.181-0.566-8.973-3.316-0.661 0.083-1.337 0.126-2.027 0.126-2.983 0-5.732-0.805-7.925-2.157 4.521-0.016 8.789-1.464 12.026-4.084 1.631-1.32 2.919-2.87 3.825-4.605 0.961-1.84 1.449-3.799 1.449-5.825 0-0.326-0.014-0.651-0.039-0.974 2.268 1.873 3.664 4.426 3.664 7.24 0 3.265-1.88 6.179-4.82 8.086-0.036 0.234-0.055 0.474-0.055 0.718z`,
     `M12 0l-12 16h12l-8 16 28-20h-16l12-12z`,
-    `M31.604 4.203c-3.461-2.623-8.787-4.189-14.247-4.189-6.754 0-12.257 2.358-15.099 6.469-1.335 1.931-2.073 4.217-2.194 6.796-0.108 2.296 0.278 4.835 1.146 7.567 2.965-8.887 11.244-15.847 20.79-15.847 0 0-8.932 2.351-14.548 9.631-0.003 0.004-0.078 0.097-0.207 0.272-1.128 1.509-2.111 3.224-2.846 5.166-1.246 2.963-2.4 7.030-2.4 11.931h4c0 0-0.607-3.819 0.449-8.212 1.747 0.236 3.308 0.353 4.714 0.353 3.677 0 6.293-0.796 8.231-2.504 1.736-1.531 2.694-3.587 3.707-5.764 1.548-3.325 3.302-7.094 8.395-10.005 0.292-0.167 0.48-0.468 0.502-0.804s-0.126-0.659-0.394-0.862z`,
+    // `M31.604 4.203c-3.461-2.623-8.787-4.189-14.247-4.189-6.754 0-12.257 2.358-15.099 6.469-1.335 1.931-2.073 4.217-2.194 6.796-0.108 2.296 0.278 4.835 1.146 7.567 2.965-8.887 11.244-15.847 20.79-15.847 0 0-8.932 2.351-14.548 9.631-0.003 0.004-0.078 0.097-0.207 0.272-1.128 1.509-2.111 3.224-2.846 5.166-1.246 2.963-2.4 7.030-2.4 11.931h4c0 0-0.607-3.819 0.449-8.212 1.747 0.236 3.308 0.353 4.714 0.353 3.677 0 6.293-0.796 8.231-2.504 1.736-1.531 2.694-3.587 3.707-5.764 1.548-3.325 3.302-7.094 8.395-10.005 0.292-0.167 0.48-0.468 0.502-0.804s-0.126-0.659-0.394-0.862z`,
     `M31 16l-15-15v9h-16v12h16v9z`,
-    `M 0 0 C 130,0 130,130 0,130`,
-    'M0 0c4.255 136.009 8.278 212.553 12.07 229.633 4.147 18.678 7.825 103.926 65.305 103.926 57.48 0 82.23-25.727 69.855-100.141s-17.414-105.914 41.024-105.914c58.437 0 35.827 89.276 30.43 107.129-15.67 51.827-30.43 154.945 34.535 163.484 64.965 8.54 73.97-46.797 75.738-86.5 1.717-38.571-18.478-164.61 35.828-164.61 56.871 0 70.925 63.998 51.457 116.333-41.035 110.316-19.335 193.898 63.137 193.898 58.195 0 88.983-73.722 92.363-221.168L580.578 0H0z',
-    `M1.335-.013l13.688 32.028 27.425-21.472 9.566 33.49 29.9-17.865 5.293 34.426 31.902-13.977.937 34.818 33.403-9.868-3.434 34.66 34.376-5.604-7.751 33.957 34.808-1.251-11.947 32.717 34.69 3.121-15.952 30.963 34.025 7.444-19.707 28.719 32.824 11.65-23.151 26.022 31.105 15.672-26.23 22.916L276 332l-28.896 19.447 26.23 22.916-31.104 15.672 23.151 26.022-5.475 1.943H0V1.333z`,
+    // `M 0 0 C 130,0 130,130 0,130`,
+    // 'M0 0c4.255 136.009 8.278 212.553 12.07 229.633 4.147 18.678 7.825 103.926 65.305 103.926 57.48 0 82.23-25.727 69.855-100.141s-17.414-105.914 41.024-105.914c58.437 0 35.827 89.276 30.43 107.129-15.67 51.827-30.43 154.945 34.535 163.484 64.965 8.54 73.97-46.797 75.738-86.5 1.717-38.571-18.478-164.61 35.828-164.61 56.871 0 70.925 63.998 51.457 116.333-41.035 110.316-19.335 193.898 63.137 193.898 58.195 0 88.983-73.722 92.363-221.168L580.578 0H0z',
+    // `M1.335-.013l13.688 32.028 27.425-21.472 9.566 33.49 29.9-17.865 5.293 34.426 31.902-13.977.937 34.818 33.403-9.868-3.434 34.66 34.376-5.604-7.751 33.957 34.808-1.251-11.947 32.717 34.69 3.121-15.952 30.963 34.025 7.444-19.707 28.719 32.824 11.65-23.151 26.022 31.105 15.672-26.23 22.916L276 332l-28.896 19.447 26.23 22.916-31.104 15.672 23.151 26.022-5.475 1.943H0V1.333z`,
   ]
 };
 
@@ -57,6 +57,7 @@ const PathConverter = function (params) {
   const demoTargetElem = params.demoTargetElem;
   const removeOffsetControl = document.getElementById('remove-offsets-control');
   this.isRemoveOffset = removeOffsetControl.checked;
+  this.isDebug = location.search.includes('debug');
 
   const isAddExamples = params.addExamples;
 
@@ -76,7 +77,7 @@ const PathConverter = function (params) {
     this.addExamples();
   }
 
-  const randExamplePos = Math.round(Math.random() * this.examples.length);
+  const randExamplePos = Math.floor(Math.random() * this.examples.length);
   this.srcTextElem.value = this.examples[randExamplePos];
 
   this.coords = this.srcTextElem.value;
@@ -145,7 +146,13 @@ PathConverter.prototype.updateView = function () {
   let coordsList = this.addOmmitedCommands(coordsListSrc.slice());
 
   if(this.isRemoveOffset) {
+    if(this.isDebug) {
+      console.log('Before transform: ', coordsList.slice());
+    }
     coordsList = this.removeOffset(coordsList);
+    if(this.isDebug) {
+      console.log('After transform: ', coordsList);
+    }
   }
 
   // Convert coordinates to relative
@@ -167,11 +174,98 @@ PathConverter.prototype.updateView = function () {
 
 // ------------------------------
 
+PathConverter.prototype.relCoordsToAbs = function(coordsList) {
+  coordsList = coordsList.slice();
+  // return coordsList;
+
+  const coordsAbs = coordsList.reduce((prev, value, index) => {
+    const itemCommandSrc = value.substring(0,1);
+    const itemCommand = itemCommandSrc.toLowerCase();
+    const isCommandUpperCase = itemCommand !== itemCommandSrc;
+    const keysList = keysListByCommand[itemCommand];
+
+    if(!isCommandUpperCase) {
+      console.log('command in lower case', itemCommandSrc);
+      // console.log(prev[index - 1]);
+
+      const itemCoords = value.substring(1).replace(/,$/,'');
+      const prevCoords = prev[index - 1];
+
+      value = this.relItemCoordToAbs(keysList, itemCoords, prevCoords, itemCommand)
+    }
+
+    prev.push(value);
+
+    return prev;
+  }, []);
+
+  return coordsAbs;
+}
+
+// ------------------------------
+
+PathConverter.prototype.relItemCoordToAbs = function (keysList, itemCoords, prevCoords, itemCommand) {
+  const valuesList = itemCoords.split(',');
+  const prevCoordsList = prevCoords.split(',');
+  // TODO
+  // instead of this need function for parsing coords
+  const [prevX, prevY] = prevCoordsList.splice(-2);
+
+  console.log('prevX, prevY');
+  console.log(prevX, prevY);
+
+  const transformedValuesList = valuesList.map((item, index) => {
+    if(!isFinite(item)) {
+      console.log('Not finite item:', item);
+      return item;
+    }
+
+    if(!keysList[index] && itemCommand !== 'a') {
+      // L lets use more than two coords
+      if(index % 2 == 0) {
+        // x
+        return item + prevX;
+      }
+      else {
+        // y
+        return item + prevY;
+      }
+    }
+
+    if(keysList[index].includes('rotation')
+      || keysList[index].includes('flag')
+      || keysList[index] === 'rx'
+      || keysList[index] === 'ry') {
+      return item;
+    }
+
+    if(keysList[index].includes('x')) {
+      return item + prevX;
+    }
+
+    if(keysList[index].includes('y')) {
+      return item + prevY;
+    }
+
+    return item;
+  });
+
+  return transformedValuesList;
+}
+
+// ------------------------------
+
 PathConverter.prototype.removeOffset = function (coordsList) {
   // Find minimal value
   coordsList = coordsList.slice();
+  // Make easier to get offset
+  const test = this.relCoordsToAbs(coordsList.slice());
   this.minXY = this.findOffset(coordsList);
   const coordsWithoutOffset = [];
+
+  if(this.isDebug) {
+      console.log('minXY: ', this.minXY);
+    }
 
   const max = 5000;
   let counter = 0;
@@ -260,18 +354,28 @@ PathConverter.prototype.findOffset = function (coordsList) {
     const itemCommandSrc = value.substring(0,1);
     const itemCommand = itemCommandSrc.toLowerCase();
     let itemCoords = value.substring(1).replace(/,$/,'');
+    const isCommandUpperCase = itemCommand !== itemCommandSrc;
+
+    console.log('counter', counter, isCommandUpperCase);
+
+    if(!isCommandUpperCase) {
+      continue;
+    }
+
+    console.log('*');
+
     const itemCoordsList = itemCoords.split(',');
     const keysList = keysListByCommand[itemCommand];
     const itemMinXY = findItemMinXY(keysList, itemCoordsList, itemCommand);
 
     if(keysList) {
-      if(itemMinXY.x) {
-        if(!minXY.x || itemMinXY.x < minXY.x) {
+      if(itemMinXY.x !== null) {
+        if(minXY.x === null || itemMinXY.x < minXY.x) {
           minXY.x = itemMinXY.x;
         }
       }
-      if(itemMinXY.y) {
-        if(!minXY.y || itemMinXY.y < minXY.y) {
+      if(itemMinXY.x !== null) {
+        if(minXY.x === null || itemMinXY.y < minXY.y) {
           minXY.y = itemMinXY.y;
         }
       }
@@ -299,12 +403,12 @@ function findItemMinXY(keysList, valuesList, itemCommand) {
     if(!key && itemCommand !== 'a') {
       // L lets use more than two coords
       if(index % 2 == 0) {
-        if(item >= 0 && (!prev.x || item < prev.x)) {
+        if(item >= 0 && (prev.x === null || item < prev.x)) {
           prev.x = item;
         }
       }
       else {
-        if(item >= 0 && (!prev.y || item < prev.y)) {
+        if(item >= 0 && (prev.y === null || item < prev.y)) {
           prev.y = item;
         }
       }
