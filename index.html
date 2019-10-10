@@ -1,93 +1,113 @@
-<html>
-<head>
-  <title>Clip-path converter</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="wrapper">
-    <header class="page-header">
-      <h1>Convert SVG absolute clip-path to relative</h1>
-    </header>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Clip-path converter</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="page-header">
+        <h1>Convert SVG absolute clip-path to relative</h1>
+      </header>
 
-    <div class="input">
-      <div class="container">
-        <header class="container__header">
-          <h4>Insert clip-path coordinats for <code>userSpaceOnUse</code>:</h4>
-          <label class="container__label">
-            <input
-              type="checkbox"
-              id="remove-offsets-control">
-              Remove offset
-          </label>
-        </header>
-        <textarea
-          id="src-text"
-          placeholder="M 20,20 h 160 v 160 h -80 v -80 h -80 z"
-          spellcheck="false"
-        ></textarea>
-      </div>
+      <main>
+        <section class="section">
+          <h2 class="visuallyhidden">Codes</h2>
 
-      <div class="container">
-        <h4>Take clip-path coordinats for <code>objectBoundingBox</code>:</h4>
-        <textarea
-          id="result-text"
-          placeholder=""
-          spellcheck="false"></textarea>
-      </div>
+          <div class="container">
+            <header class="container__header">
+              <h3>
+                <label for="src-text">
+                  Insert clip-path coordinats for <code>userSpaceOnUse</code>:
+                </label>
+              </h3>
+            </header>
+
+            <textarea
+              id="src-text"
+              placeholder="M 20,20 h 160 v 160 h -80 v -80 h -80 z"
+              spellcheck="false"
+            ></textarea>
+          </div>
+
+          <div class="container">
+            <header class="container__header">
+              <h3>
+                <label for="result-text">
+                  Take clip-path coordinats for <code>objectBoundingBox</code>:
+                </label>
+              </h3>
+
+              <label class="container__label">
+                <input
+                  type="checkbox"
+                  id="remove-offsets-control">
+                  Remove offset
+              </label>
+            </header>
+
+            <textarea
+              id="result-text"
+              placeholder=""
+              spellcheck="false"></textarea>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="visuallyhidden">Demos</h2>
+
+          <div class="result"></div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <a href="https://github.com/yoksel/relative-clip-path/">Project on GitHub</a>
+        <a href="https://twitter.com/yoksel_en">@yoksel_en</a>
+      </footer>
     </div>
 
-    <div class="result">
-
-    </div>
-
-    <footer class="footer">
-      <a href="https://github.com/yoksel/relative-clip-path/">Project on GitHub</a>
-      <a href="https://twitter.com/yoksel_en">@yoksel_en</a>
-    </footer>
-  </div>
-
-  <template id="demos-tmpl">
-    <div class="demos">
-      <div class="demos__svg-container">
-        <svg>
-          <clipPath id="clip-path-before" clipPathUnits="userSpaceOnUse"></clipPath>
-          <clipPath id="clip-path-after" clipPathUnits="objectBoundingBox"></clipPath>
-        </svg>
-      </div>
-
-      <div class="demos__item">
-        <h2>Src path</h2>
-        <div class="src-container">
+    <template id="demos-tmpl">
+      <div class="demos">
+        <div class="demos__svg-container">
           <svg>
-
+            <clipPath id="clip-path-before" clipPathUnits="userSpaceOnUse"></clipPath>
+            <clipPath id="clip-path-after" clipPathUnits="objectBoundingBox"></clipPath>
           </svg>
         </div>
-      </div>
 
-      <div class="demos__item">
-        <h2>Clip path before</h2>
-        <div class="demo">
-          <div class="demo__target demo__target--before"></div>
+        <div class="demos__item">
+          <h3>Svg with initial path</h3>
+          <div class="src-container">
+            <svg>
+
+            </svg>
+          </div>
+        </div>
+
+        <div class="demos__item">
+          <h3>Clip-path with initial path</h3>
+          <div class="demo">
+            <div class="demo__target demo__target--before"></div>
+          </div>
+        </div>
+
+        <div class="demos__item">
+          <h3>Clip-path with relative path</h3>
+          <div class="demo">
+            <div class="demo__target demo__target--after"></div>
+          </div>
         </div>
       </div>
+    </template>
 
-      <div class="demos__item">
-        <h2>Clip path after</h2>
-        <div class="demo">
-          <div class="demo__target demo__target--after"></div>
-        </div>
-      </div>
-    </div>
-  </template>
-
-  <script src="script.js"></script>
-  <script>
-    const pathConverter = new PathConverter({
-      srcTextElem: document.getElementById('src-text'),
-      resultTextElem: document.getElementById('result-text'),
-      demoTargetElem: document.querySelector('.result'),
-      addExamples: true
-    });
-  </script>
-</body>
+    <script src="script.js"></script>
+    <script>
+      const pathConverter = new PathConverter({
+        srcTextElem: document.getElementById('src-text'),
+        resultTextElem: document.getElementById('result-text'),
+        demoTargetElem: document.querySelector('.result'),
+        addExamples: true
+      });
+    </script>
+  </body>
 </html>

@@ -1,3 +1,6 @@
+/* Base
+------------------------------ */
+
 BODY {
   margin: 0;
   font: 16px/1.4 "Trebuchet MS", Arial, sans-serif;
@@ -8,26 +11,37 @@ A {
   color: steelblue;
 }
 
+H1, H2, H3, H4 {
+  font-family: Georgia, serif;
+  font-weight: normal;
+}
+
 H1 {
-  font: 2em/1.4 Georgia, serif;
+  font-size: 2.5em;
   text-align: center;
-  }
+}
 
 H2 {
   margin: 0;
-  margin-bottom: .15em;
-  font: 1.75em/1.4 Georgia, serif;
-  }
+  margin-bottom: .5em;
+  font-size: 2em;
+}
+
+H3 {
+  margin: 0;
+  margin-bottom: .35em;
+  font-size: 1.25em;
+}
 
 H4 {
   margin: 0;
-  margin-bottom: .15em;
-  font: 1.3em/1.4 Georgia, serif;
-  }
+  margin-bottom: .5em;
+  font-size: 1.1em;
+}
 
 P {
   margin: 1.2rem 0;
-  }
+}
 
 TEXTAREA {
   width: 100%;
@@ -49,6 +63,11 @@ CODE {
   color: #333;
 }
 
+
+
+/* Helpers
+------------------------------ */
+
 .hidden {
   display: none;
   }
@@ -66,12 +85,18 @@ CODE {
   overflow: hidden;
 }
 
+
+
+/* Layout
+------------------------------ */
+
 .wrapper {
-  min-width: 600px;
+  min-width: 375px;
   max-width: 900px;
   margin: auto;
   padding: 1.5rem 2rem 4rem;
-  }
+  box-sizing: border-box;
+}
 
 .header {
   position: relative;
@@ -88,6 +113,15 @@ CODE {
   padding-top: 2rem;
   border-top: 1px solid #CCC;
 }
+
+.section + .section {
+  margin-top: 2.5em;
+}
+
+
+
+/* Examples
+------------------------------ */
 
 .examples__container {
   display: flex;
@@ -117,90 +151,10 @@ CODE {
   height: 100%;
 }
 
-.demos {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
 
-.demos svg {
-  width: 100%;
-  height: 300px;
-  outline: 1px solid #CCC;
-  /*stroke: red;
-  stroke-width: 10;*/
-}
 
-.demos__svg-container {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-}
-
-.demos__item {
-  width: 30%;
-  box-sizing: border-box;
-}
-
-.demo {
-  width: 100%;
-  outline: 1px solid #CCC;
-}
-
-.demo__target {
-  width: 100%;
-  height: 300px;
-  background: url(https://source.unsplash.com/600x600?summer);
-  background-size: cover;
-}
-.demo__target--before {
-  background-color: gold;
-  clip-path: url(#clip-path-before);
-}
-.demo__target--after {
-  background-color: yellowgreen;
-  clip-path: url(#clip-path-after);
-}
-
-.options {
-  position: relative;
-}
-
-.options__middle-word {
-  vertical-align: middle;
-  color: #AAA
-}
-
-.options__text {
-  display: inline-block;
-  border-bottom: 1px dashed;
-  color: steelblue;
-  cursor: pointer;
-}
-.options__input:checked + .options__text {
-  border: 0;
-  color: inherit;
-  cursor: default;
-}
-
-.expander {
-  position: relative;
-  z-index: 2;
-}
-
-.expanded {
-  position: absolute;
-  top: -15px;
-  right: -15px;
-  left: -15px;
-  padding: 2rem 1.5rem 1rem;
-  background: #FFF;
-  border: 1px solid #CCC;
-  border-radius: 5px;
-  box-shadow: 0 0 0 5px rgba(0,0,0,.1);
-}
+/* Containers
+------------------------------ */
 
 .containers {
   margin-bottom: 32px;
@@ -227,4 +181,76 @@ CODE {
 .container__label {
   display: flex;
   align-items: center;
+  white-space: nowrap;
+  padding-left: 1em;
+}
+
+
+
+/* Demos
+------------------------------ */
+
+.demos {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.demos svg {
+  width: 100%;
+  height: 300px;
+  outline: 1px solid #CCC;
+  /*stroke: red;
+  stroke-width: 10;*/
+}
+
+@media (max-width: 700px) {
+  .demos svg {
+    height: 200px;
+  }
+}
+
+.demos__svg-container {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.demos__item {
+  width: 30%;
+}
+
+@media (max-width: 700px) {
+  .demos__item {
+    width: 100%;
+  }
+}
+
+.demo {
+  width: 100%;
+  outline: 1px solid #CCC;
+}
+
+.demo__target {
+  width: 100%;
+  height: 300px;
+  background: url(https://source.unsplash.com/600x600?summer);
+  background-size: cover;
+}
+
+@media (max-width: 700px) {
+  .demo__target {
+    height: 200px;
+  }
+}
+
+.demo__target--before {
+  background-color: gold;
+  clip-path: url(#clip-path-before);
+}
+.demo__target--after {
+  background-color: yellowgreen;
+  clip-path: url(#clip-path-after);
 }
