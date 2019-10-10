@@ -1,4 +1,5 @@
 BODY {
+  margin: 0;
   font: 16px/1.4 "Trebuchet MS", Arial, sans-serif;
   color: #000;
 }
@@ -37,7 +38,7 @@ TEXTAREA {
   border-radius: 8px;
   font-size: 13px;
   font-family: monospace;
-  }
+}
 
 CODE {
   padding: 0 3px;
@@ -46,7 +47,7 @@ CODE {
   text-shadow: 1px 1px 0 white;
   font: 14px/1.4 monospace;
   color: #333;
-  }
+}
 
 .hidden {
   display: none;
@@ -68,7 +69,8 @@ CODE {
 .wrapper {
   min-width: 600px;
   max-width: 900px;
-  margin: 1.5rem auto 4rem;
+  margin: auto;
+  padding: 1.5rem 2rem 4rem;
   }
 
 .header {
@@ -213,11 +215,16 @@ CODE {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  }
+}
 
 .container__header {
   display: flex;
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  }
+}
+
+.container__label {
+  display: flex;
+  align-items: center;
+}
