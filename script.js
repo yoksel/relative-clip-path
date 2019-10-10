@@ -410,7 +410,7 @@ PathConverter.prototype.findOffset = function (coordsList) {
         }
       }
       if(itemMinXY.x !== null) {
-        if(minXY.x === null || itemMinXY.y < minXY.y) {
+        if(minXY.y === null || itemMinXY.y < minXY.y) {
           minXY.y = itemMinXY.y;
         }
       }
