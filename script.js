@@ -425,11 +425,11 @@ PathConverter.prototype.removeOffsetFromValues = function (keysList, coordsList,
       // L lets use more than two coords
       if(index % 2 == 0) {
         // x
-        return round(item - this.minXY.x);
+        return item - this.minXY.x;
       }
       else {
         // y
-        return round(item - this.minXY.y);
+        return item - this.minXY.y;
       }
     }
 
@@ -441,11 +441,11 @@ PathConverter.prototype.removeOffsetFromValues = function (keysList, coordsList,
     }
 
     if(keysList[index].includes('x')) {
-      return round(item - this.minXY.x);
+      return item - this.minXY.x;
     }
 
     if(keysList[index].includes('y')) {
-      return round(item - this.minXY.y);
+      return item - this.minXY.y;
     }
 
     return item;
@@ -556,9 +556,9 @@ PathConverter.prototype.findItemMinXY = function(keysList, coordsList, itemComma
 // ---------------------------------------------
 // Transforming coordinats from userSpaceOnUse
 // coordinate system to objectBoundingBox
+// M281.5 0L563 563H0z -> M0.5,0, L1,1, H0
 // ---------------------------------------------
 
-// M281.5 0L563 563H0z -> M0.5,0, L1,1, H0
 PathConverter.prototype.transformCoords = function (srcCoordsList) {
   srcCoordsList = srcCoordsList.slice();
   const coordsTransformed = [];
@@ -593,10 +593,10 @@ PathConverter.prototype.transformValuesByKeys = function (keysList, coordsList, 
     if(!keysList[index] && itemCommand !== 'a') {
       // L lets use more than two coords
       if(index % 2 == 0) {
-        return item/this.pathSizes.width;
+        return round(item/this.pathSizes.width);
       }
       else {
-        return item/this.pathSizes.height;
+        return round(item/this.pathSizes.height);
       }
     }
 
@@ -605,11 +605,11 @@ PathConverter.prototype.transformValuesByKeys = function (keysList, coordsList, 
     }
 
     if(keysList[index].includes('x')) {
-      return item/this.pathSizes.width;
+      return round(item/this.pathSizes.width);
     }
 
     if(keysList[index].includes('y')) {
-      return item/this.pathSizes.height;
+      return round(item/this.pathSizes.height);
     }
 
     return item;
