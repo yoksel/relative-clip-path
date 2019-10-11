@@ -18,6 +18,7 @@ const keysListByCommand = {
 
 const examples = {
   dev: [
+    `M 20, 20 h100 v100 h-100 v-100`,
     `M 20,20 h 160 v 160 h -80 v -80 h -80 z`,
     `M 10,110 L 10,10 L 40,50 L 70,10 L 100,50 L 130,10 L 130,110 z`,
     `M 100,20 L 180,160 L 20,160 z`,
@@ -35,7 +36,6 @@ const examples = {
     `M89.118.892l23.177 83.96 62.052-61.123.657 87.098 75.757-42.98-21.908 84.3 84.3-21.908-42.98 75.757 87.098.657-61.123 62.052 83.96 23.177-75.1 44.118 75.1 44.118-3.195.882H0V4.087L.882.892 45 75.992z`,
   ],
   prod: [
-    `M20, 20 h100 v100 h-100 v-100`,
     `M281.5 0L563 563H0z`,
     `M276.5 444.707l-170.752 80.812 24.093-187.367L.218 200.731l185.642-34.987L276.5 0l90.64 165.744 185.642 34.987-129.623 137.421 24.093 187.367z`,
     `M269 0l190.212 78.788L538 269l-78.788 190.212L269 538 78.788 459.212 0 269 78.788 78.788z`,
@@ -75,15 +75,14 @@ const PathConverter = function (params) {
   this.demoClipPathBefore = demoTargetElem.querySelector('#clip-path-before');
   this.demoClipPathAfter = demoTargetElem.querySelector('#clip-path-after');
 
-  this.examples = examples.dev.concat(examples.prod);
+  this.examples = examples.prod;
 
   if(isAddExamples) {
     this.addExamples();
   }
 
   const randExamplePos = Math.floor(Math.random() * this.examples.length);
-  // this.srcTextElem.value = this.examples[randExamplePos];
-  this.srcTextElem.value = this.examples[3];
+  this.srcTextElem.value = this.examples[randExamplePos];
 
   this.coords = this.srcTextElem.value;
 
@@ -148,21 +147,17 @@ PathConverter.prototype.updateView = function () {
   // Collect all cordinates set from char to next char (next char not includes)
   const coordsListSrc = [...coordsNormalized.matchAll(/[a-z][^(a-z)]{1,}/gi)]
     .map(item => item[0]);
-  let coordsList = this.addOmmitedCommands(coordsListSrc.slice());
+  let coordsList = coordsListSrc.slice();
+  // Add ommited command for more correct parsing
+  coordsList = this.addOmmitedCommands(coordsListSrc.slice());
 
   if(this.isRemoveOffset) {
-    if(this.isDebug) {
-      console.log('Before removing offset: ', coordsList.slice());
-    }
+    // Remove path offset
     coordsList = this.removeOffset(coordsList);
-    if(this.isDebug) {
-      console.log('After removing offset: ', coordsList);
-    }
   }
 
   // Convert coordinates to relative
   const coordsTransformed = this.transformCoords(coordsList);
-  // const coordsTransformed = coordsList;
 
   let resultPath = coordsTransformed.join(', ');
   this.demoClipPathAfter.innerHTML = '';
@@ -210,7 +205,6 @@ PathConverter.prototype.relCoordsToAbs = function(initialCoordsList) {
 // ------------------------------
 
 PathConverter.prototype.relItemCoordToAbs = function (keysList, coordsList, prevCoords, itemCommand) {
-  console.log('\n\nrelItemCoordToAbs')
   const valuesList = coordsList;
   const prevCoordsData = parseCoordsItem(prevCoords);
   const prevCoordsList = prevCoordsData.coordsList;
@@ -223,8 +217,6 @@ PathConverter.prototype.relItemCoordToAbs = function (keysList, coordsList, prev
   else if(prevCoordsData.command === 'h') {
     prevY = this.lastUsedCoords.y;
   }
-
-  console.log('* prevX, prevY', prevX, prevY)
 
   const transformedValuesList = valuesList.map((item, index) => {
     const key = keysList[index];
@@ -242,19 +234,22 @@ PathConverter.prototype.relItemCoordToAbs = function (keysList, coordsList, prev
     }
 
     if(!key && itemCommand !== 'a') {
-      console.log('1: no key')
-      // L lets use more than two coords
+      // Commands can use more than two coords
       if(index % 2 == 0) {
         // x
         const newX = item + prevX;
-        prevX = newX;
+        if(itemCommand === 'l') {
+          prevX = newX;
+        }
         this.lastUsedCoords.x = newX;
         return newX;
       }
       else {
         // y
         const newY = item + prevY;
-        prevY = newY;
+        if(itemCommand === 'l') {
+          prevY = newY;
+        }
         this.lastUsedCoords.y = newY;
         return newY;
       }
@@ -262,26 +257,24 @@ PathConverter.prototype.relItemCoordToAbs = function (keysList, coordsList, prev
 
     if(key.includes('x')) {
       const newX = item + prevX;
-      prevX = newX;
+      if(itemCommand === 'l') {
+        prevX = newX;
+      }
       this.lastUsedCoords.x = newX;
       return newX;
     }
 
     if(key.includes('y')) {
       const newY = item + prevY;
-      prevY = newY;
+      if(itemCommand === 'l') {
+        prevY = newY;
+      }
       this.lastUsedCoords.y = newY;
       return newY;
     }
 
     return item;
   });
-
-  // console.log('-- valuesList', valuesList)
-
-  // console.log('-- transformedValuesList', transformedValuesList);
-
-  // console.log('-- this.lastUsedCoords', this.lastUsedCoords)
 
   return transformedValuesList;
 }
@@ -294,30 +287,20 @@ PathConverter.prototype.removeOffset = function (srcCoordsList) {
   // Make easier to get offset
   const absCoordsList = this.relCoordsToAbs(srcCoordsList.slice());
 
-  if(this.isDebug) {
-    console.log('srcCoordsList', srcCoordsList);
-    console.log('absCoordsList', absCoordsList)
-    // console.log('target', 'M31 16 L16,1 V10 H0 V22 H16 V31')
-  }
-
   srcCoordsList = absCoordsList;
   this.minXY = this.findOffset(absCoordsList);
-  console.log(this.minXY)
   const coordsWithoutOffset = [];
-
 
   const max = 5000;
   let counter = 0;
 
   while(srcCoordsList.length > 0 && counter < max) {
     let value = srcCoordsList.shift();
-    console.log('value', value)
     let {commandSrc, command, coordsList, keysList, isCommandUpperCase} = parseCoordsItem(value);
 
     if(keysList) {
       if(isCommandUpperCase) {
         const transformedValsList = this.removeOffsetFromValues(keysList, coordsList, command)
-        console.log('transformedValsList', transformedValsList)
         value = `${commandSrc}${transformedValsList.join(',')}`;
       }
 
@@ -328,11 +311,14 @@ PathConverter.prototype.removeOffset = function (srcCoordsList) {
     }
     counter++;
   }
-  console.log('coordsWithoutOffset', coordsWithoutOffset)
 
-  // console.log('removeOffset return absCoordsList', absCoordsList)
   return coordsWithoutOffset;
-  // return absCoordsList;
+}
+
+// ------------------------------
+
+function round(num) {
+  return Math.round(num * 1000) / 1000;
 }
 
 // ------------------------------
@@ -341,21 +327,15 @@ PathConverter.prototype.removeOffsetFromValues = function (keysList, coordsList,
   const valuesList = coordsList;
 
   const transformedValuesList = valuesList.map((item, index) => {
-    console.log('item', item)
-    if(!isFinite(item)) {
-      console.log('Not finite item:', item);
-      return item;
-    }
-
     if(!keysList[index] && itemCommand !== 'a') {
       // L lets use more than two coords
       if(index % 2 == 0) {
         // x
-        return item - this.minXY.x;
+        return round(item - this.minXY.x);
       }
       else {
         // y
-        return item - this.minXY.y;
+        return round(item - this.minXY.y);
       }
     }
 
@@ -367,11 +347,11 @@ PathConverter.prototype.removeOffsetFromValues = function (keysList, coordsList,
     }
 
     if(keysList[index].includes('x')) {
-      return item - this.minXY.x;
+      return round(item - this.minXY.x);
     }
 
     if(keysList[index].includes('y')) {
-      return item - this.minXY.y;
+      return round(item - this.minXY.y);
     }
 
     return item;
@@ -384,7 +364,6 @@ PathConverter.prototype.removeOffsetFromValues = function (keysList, coordsList,
 
 PathConverter.prototype.findOffset = function (srcCoordsList) {
   // Find minimal value
-  console.log('findOffset')
   srcCoordsList = srcCoordsList.slice();
   let minXY = { x: null, y: null};
   const max = 5000;
@@ -409,23 +388,15 @@ PathConverter.prototype.findOffset = function (srcCoordsList) {
 
     const itemMinXY = this.findItemMinXY(keysList, coordsList, command);
 
-    // console.log('\n + value', value)
-    // console.log(' + itemMinXY', itemMinXY)
-    // console.log(' + minXY', minXY)
-
-    // console.log('itemMinXY.x < minXY.x', itemMinXY.x < minXY.x)
-
     if(itemMinXY.x >= 0 && itemMinXY.x < minXY.x) {
       minXY.x = itemMinXY.x;
     }
     if(itemMinXY.y >= 0 && itemMinXY.y < minXY.y) {
       minXY.y = itemMinXY.y;
     }
-    // console.log(' * new minXY', minXY)
+
     counter++;
   }
-
-  console.log('Final minXY', minXY)
 
   return minXY;
 }
@@ -493,6 +464,13 @@ PathConverter.prototype.addOmmitedCommands = function (srcCoordsList) {
   const coordsFixed = [];
   const max = 5000;
   let counter = 0;
+  const handledCommands = {
+    'a': true,
+    't': true,
+    'c': true,
+    's': true,
+    'q': true,
+  }
 
   while(srcCoordsList.length > 0 && counter < max) {
     let value = srcCoordsList.shift();
@@ -501,15 +479,15 @@ PathConverter.prototype.addOmmitedCommands = function (srcCoordsList) {
     if(keysList) {
       let coords;
 
-      if(command == 'a' && coordsList.length > keysList.length) {
+      if(handledCommands[command] && coordsList.length > keysList.length) {
         // Fix problem with long commands A
         const cuttedTail = coordsList.splice(keysList.length);
-        coords = coordsList.join(',')
+        coords = coordsList.join(',');
 
         if(cuttedTail.length % keysList.length === 0) {
           // Move part of command to the next item
           cuttedTail[0] = `${commandSrc}${cuttedTail[0]}`;
-          coordsList.unshift(cuttedTail.join(','));
+          srcCoordsList.unshift(cuttedTail.join(','));
         }
         else {
           console.log('\nCommand is broken, check params:', coordsList);
@@ -534,6 +512,7 @@ PathConverter.prototype.addOmmitedCommands = function (srcCoordsList) {
 
 // ------------------------------
 
+// M281.5 0L563 563H0z -> M0.5,0, L1,1, H0
 PathConverter.prototype.transformCoords = function (srcCoordsList) {
   srcCoordsList = srcCoordsList.slice();
   const coordsTransformed = [];
