@@ -54,16 +54,39 @@ const examples = {
 };
 
 const PathConverter = function (params) {
-
   this.srcTextElem = params.srcTextElem;
   this.resultTextElem = params.resultTextElem;
   const demoTargetElem = params.demoTargetElem;
   const removeOffsetControl = document.getElementById('remove-offsets-control');
+
+  this.fullCodes = {
+    spaces: {},
+    path: document.querySelector('.full-codes__result path'),
+
+    css: document.querySelector('.full-codes__result style'),
+    svg: document.querySelector('.full-codes__result svg'),
+    html: document.querySelector('.full-codes__result div'),
+
+    cssCode: document.querySelector('.full-codes__css-code'),
+    htmlCode: document.querySelector('.full-codes__html-code'),
+  };
+
+  this.fullCodes.cssCode.value = this.removeStartSpaces(this.fullCodes.css.innerHTML, 'css');
+
   this.isRemoveOffset = removeOffsetControl.checked;
   this.isDebug = location.search.includes('debug');
   this.lastUsedCoords = {};
 
+  // Add examples if needed
+
   const isAddExamples = params.addExamples;
+  this.examples = examples.prod;
+
+  if(isAddExamples) {
+    this.addExamples();
+  }
+
+  // Prepare DOM
 
   const demosTmpl = document.getElementById('demos-tmpl');
   demoTargetElem.appendChild(demosTmpl.content.cloneNode(true));
@@ -75,16 +98,15 @@ const PathConverter = function (params) {
   this.demoClipPathBefore = demoTargetElem.querySelector('#clip-path-before');
   this.demoClipPathAfter = demoTargetElem.querySelector('#clip-path-after');
 
-  this.examples = examples.prod;
-
-  if(isAddExamples) {
-    this.addExamples();
-  }
+  // Add demo code
 
   const randExamplePos = Math.floor(Math.random() * this.examples.length);
-  this.srcTextElem.value = this.examples[randExamplePos];
+  const randomExample = this.examples[randExamplePos];
 
-  this.coords = this.srcTextElem.value;
+  this.srcTextElem.value = randomExample;
+  this.coords = randomExample;
+
+  // Actions
 
   this.updateView();
 
@@ -99,7 +121,11 @@ const PathConverter = function (params) {
   });
 }
 
-// ------------------------------
+
+
+// ---------------------------------------------
+// Add examples
+// ---------------------------------------------
 
 PathConverter.prototype.addExamples = function () {
   const examplesWrapper = document.createElement('div');
@@ -132,7 +158,11 @@ PathConverter.prototype.addExamples = function () {
   examplesWrapper.classList.remove('visuallyhidden');
 }
 
-// ------------------------------
+
+
+// ---------------------------------------------
+// Update view
+// ---------------------------------------------
 
 PathConverter.prototype.updateView = function () {
   this.demoPath.setAttribute('d', this.coords);
@@ -148,7 +178,7 @@ PathConverter.prototype.updateView = function () {
   const coordsListSrc = [...coordsNormalized.matchAll(/[a-z][^(a-z)]{1,}/gi)]
     .map(item => item[0]);
   let coordsList = coordsListSrc.slice();
-  // Add ommited command for more correct parsing
+  // Add ommited commands for more correct parsing
   coordsList = this.addOmmitedCommands(coordsListSrc.slice());
 
   if(this.isRemoveOffset) {
@@ -164,20 +194,86 @@ PathConverter.prototype.updateView = function () {
 
   if(resultPath.includes('Infinity')) {
     this.resultTextElem.value = 'Source path is not correct';
+    return;
   }
-  else {
-    const pathAfter = this.demoClipPathAfter.appendChild(this.demoPath.cloneNode(true));
-    pathAfter.setAttribute('d', resultPath);
 
-    this.resultTextElem.value = resultPath;
-  }
+  const pathAfter = this.demoClipPathAfter.appendChild(this.demoPath.cloneNode(true));
+  pathAfter.setAttribute('d', resultPath);
+  this.resultTextElem.value = resultPath;
+
+  this.fullCodes.path.setAttribute('d', resultPath);
+
+  const svgOutputCode = this.removeStartSpaces(this.fullCodes.svg.outerHTML, 'svg');
+  const htmlOutputCode = this.removeStartSpaces(this.fullCodes.html.outerHTML, 'html');
+  this.fullCodes.htmlCode.value = `${svgOutputCode}\n\n${htmlOutputCode}`;
 }
 
-// ------------------------------
 
-PathConverter.prototype.relCoordsToAbs = function(initialCoordsList) {
+
+// ---------------------------------------------
+// Add ommitted command letters for easy parisng
+// ---------------------------------------------
+
+PathConverter.prototype.addOmmitedCommands = function (srcCoordsList) {
+  srcCoordsList = srcCoordsList.slice();
+  const coordsFixed = [];
+  const max = 5000;
+  let counter = 0;
+  const handledCommands = {
+    'a': true,
+    't': true,
+    'c': true,
+    's': true,
+    'q': true,
+  }
+
+  while(srcCoordsList.length > 0 && counter < max) {
+    let value = srcCoordsList.shift();
+    let {commandSrc, command, coordsList, keysList} = parseCoordsItem(value);
+
+    if(keysList) {
+      let coords;
+
+      if(handledCommands[command] && coordsList.length > keysList.length) {
+        // Fix problem with long commands A
+        const cuttedTail = coordsList.splice(keysList.length);
+        coords = coordsList.join(',');
+
+        if(cuttedTail.length % keysList.length === 0) {
+          // Move part of command to the next item
+          cuttedTail[0] = `${commandSrc}${cuttedTail[0]}`;
+          srcCoordsList.unshift(cuttedTail.join(','));
+        }
+        else {
+          console.log('\nCommand is broken, check params:', coordsList);
+        }
+      }
+      else {
+        coords = coordsList.join(',');
+      }
+
+      value = `${commandSrc}${coords}`;
+    }
+    else {
+      console.log('Unrecognized command: ', command);
+    }
+
+    coordsFixed.push(value);
+    counter++;
+  }
+
+  return coordsFixed;
+}
+
+
+
+// ---------------------------------------------
+// Translate relative commands to absolute
+// (l -> L, a -> A, ...)
+// ---------------------------------------------
+
+PathConverter.prototype.relCommandsToAbs = function(initialCoordsList) {
   initialCoordsList = initialCoordsList.slice();
-  // return initialCoordsList;
 
   const coordsAbs = initialCoordsList.reduce((prev, value, index) => {
     let {commandSrc, command, coordsList, keysList, isCommandUpperCase} = parseCoordsItem(value);
@@ -202,7 +298,7 @@ PathConverter.prototype.relCoordsToAbs = function(initialCoordsList) {
   return coordsAbs;
 }
 
-// ------------------------------
+// ---------------------------------------------
 
 PathConverter.prototype.relItemCoordToAbs = function (keysList, coordsList, prevCoords, itemCommand) {
   const valuesList = coordsList;
@@ -279,13 +375,17 @@ PathConverter.prototype.relItemCoordToAbs = function (keysList, coordsList, prev
   return transformedValuesList;
 }
 
-// ------------------------------
+
+
+// ---------------------------------------------
+// Removing path offset
+// ---------------------------------------------
 
 PathConverter.prototype.removeOffset = function (srcCoordsList) {
   // Find minimal value
   srcCoordsList = srcCoordsList.slice();
   // Make easier to get offset
-  const absCoordsList = this.relCoordsToAbs(srcCoordsList.slice());
+  const absCoordsList = this.relCommandsToAbs(srcCoordsList.slice());
 
   srcCoordsList = absCoordsList;
   this.minXY = this.findOffset(absCoordsList);
@@ -315,13 +415,7 @@ PathConverter.prototype.removeOffset = function (srcCoordsList) {
   return coordsWithoutOffset;
 }
 
-// ------------------------------
-
-function round(num) {
-  return Math.round(num * 1000) / 1000;
-}
-
-// ------------------------------
+// ---------------------------------------------
 
 PathConverter.prototype.removeOffsetFromValues = function (keysList, coordsList, itemCommand) {
   const valuesList = coordsList;
@@ -360,7 +454,7 @@ PathConverter.prototype.removeOffsetFromValues = function (keysList, coordsList,
   return transformedValuesList;
 }
 
-// ------------------------------
+// ---------------------------------------------
 
 PathConverter.prototype.findOffset = function (srcCoordsList) {
   // Find minimal value
@@ -401,7 +495,7 @@ PathConverter.prototype.findOffset = function (srcCoordsList) {
   return minXY;
 }
 
-// ------------------------------
+// ---------------------------------------------
 
 PathConverter.prototype.findItemMinXY = function(keysList, coordsList, itemCommand) {
   let valuesList = coordsList;
@@ -457,60 +551,12 @@ PathConverter.prototype.findItemMinXY = function(keysList, coordsList, itemComma
   return minXY;
 }
 
-// ------------------------------
 
-PathConverter.prototype.addOmmitedCommands = function (srcCoordsList) {
-  srcCoordsList = srcCoordsList.slice();
-  const coordsFixed = [];
-  const max = 5000;
-  let counter = 0;
-  const handledCommands = {
-    'a': true,
-    't': true,
-    'c': true,
-    's': true,
-    'q': true,
-  }
 
-  while(srcCoordsList.length > 0 && counter < max) {
-    let value = srcCoordsList.shift();
-    let {commandSrc, command, coordsList, keysList} = parseCoordsItem(value);
-
-    if(keysList) {
-      let coords;
-
-      if(handledCommands[command] && coordsList.length > keysList.length) {
-        // Fix problem with long commands A
-        const cuttedTail = coordsList.splice(keysList.length);
-        coords = coordsList.join(',');
-
-        if(cuttedTail.length % keysList.length === 0) {
-          // Move part of command to the next item
-          cuttedTail[0] = `${commandSrc}${cuttedTail[0]}`;
-          srcCoordsList.unshift(cuttedTail.join(','));
-        }
-        else {
-          console.log('\nCommand is broken, check params:', coordsList);
-        }
-      }
-      else {
-        coords = coordsList.join(',');
-      }
-
-      value = `${commandSrc}${coords}`;
-    }
-    else {
-      console.log('Unrecognized command: ', command);
-    }
-
-    coordsFixed.push(value);
-    counter++;
-  }
-
-  return coordsFixed;
-}
-
-// ------------------------------
+// ---------------------------------------------
+// Transforming coordinats from userSpaceOnUse
+// coordinate system to objectBoundingBox
+// ---------------------------------------------
 
 // M281.5 0L563 563H0z -> M0.5,0, L1,1, H0
 PathConverter.prototype.transformCoords = function (srcCoordsList) {
@@ -538,7 +584,7 @@ PathConverter.prototype.transformCoords = function (srcCoordsList) {
   return coordsTransformed;
 }
 
-// ------------------------------
+// ---------------------------------------------
 
 PathConverter.prototype.transformValuesByKeys = function (keysList, coordsList, itemCommand) {
   const valuesList = coordsList;
@@ -572,7 +618,54 @@ PathConverter.prototype.transformValuesByKeys = function (keysList, coordsList, 
   return transformedValuesList;
 }
 
-// ------------------------------
+
+
+// ---------------------------------------------
+// Removing start spaces from output codes
+// ---------------------------------------------
+
+PathConverter.prototype.removeStartSpaces = function (str, key) {
+  str = str.trim();
+  let minSpace = this.fullCodes.spaces[key];
+
+  if(minSpace === undefined) {
+    minSpace = findMinSpaces(str);
+    this.fullCodes.spaces[key] = minSpace;
+  }
+
+  const regexp = new RegExp(`^\\s{${minSpace}}`,'gm');
+
+  return str.replace(regexp,'');
+}
+
+
+
+// ---------------------------------------------
+// Helpers
+// ---------------------------------------------
+
+function findMinSpaces(str) {
+  const spaces = str
+    .match(/(^\s{1,})/gm);
+
+  if(!spaces) {
+    return 0;
+  }
+  const minSpace = spaces
+    .reduce((prev, item) => {
+      const spacesLength = item.length;
+      if(prev == null || spacesLength < prev) {
+        prev = spacesLength;
+        return prev;
+      }
+
+      return prev;
+    }, null);
+
+  return minSpace;
+}
+
+// ---------------------------------------------
 
 function parseCoordsItem(item) {
   const commandSrc = item.substring(0,1);
@@ -594,7 +687,7 @@ function parseCoordsItem(item) {
   }
 }
 
-// ------------------------------
+// ---------------------------------------------
 
 function normalizePathCoords(coords) {
   let result = coords
@@ -612,4 +705,10 @@ function normalizePathCoords(coords) {
     .replace(/\s{1,}/gi, ',');
 
   return result;
+}
+
+// ---------------------------------------------
+
+function round(num) {
+  return Math.round(num * 1000) / 1000;
 }

@@ -59,7 +59,7 @@ CODE {
   background: #EEE;
   border-radius: 5px;
   text-shadow: 1px 1px 0 white;
-  font: 14px/1.4 monospace;
+  font-family: monospace;
   color: #333;
 }
 
@@ -218,7 +218,7 @@ CODE {
 }
 
 .demos__item {
-  width: 30%;
+  width: calc((100% - 3rem) / 3);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -249,10 +249,34 @@ CODE {
 }
 
 .demo__target--before {
-  background-color: gold;
+  background-color: teal;
   clip-path: url(#clip-path-before);
 }
 .demo__target--after {
-  background-color: yellowgreen;
+  background-color: turquoise;
   clip-path: url(#clip-path-after);
+}
+
+
+
+/* Full code
+------------------------------ */
+
+.full-codes {
+  display: flex;
+  justify-content: space-between;
+}
+
+.full-codes__item {
+  width: calc((100% - 3rem) / 2);
+  height: auto;
+}
+
+.full-codes TEXTAREA + H3 {
+  margin-top: 2em;
+}
+
+.full-codes__result {
+  display: flex;
+  align-items: center;
 }

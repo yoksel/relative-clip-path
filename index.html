@@ -55,9 +55,64 @@
         </section>
 
         <section class="section">
-          <h2 class="visuallyhidden">Demos</h2>
+          <h2 class="">Live demos</h2>
 
           <div class="result"></div>
+        </section>
+
+        <section class="section">
+          <h2 class="">All together now</h2>
+
+          <div class="full-codes">
+            <div class="
+              full-codes__item"
+              >
+              <h3>
+                <label for="css-code">CSS</label>
+              </h3>
+              <textarea
+                id="css-code"
+                class="
+                  full-codes__css-code"
+                ></textarea>
+
+              <h3>
+                <label for="html-code">SVG + HTML</label>
+              </h3>
+              <textarea
+                id="html-code"
+                class="
+                  full-codes__html-code"
+                ></textarea>
+            </div>
+
+            <div class="
+              full-codes__result
+              full-codes__item"
+              >
+              <style>
+                .svg {
+                  position: absolute;
+                  width: 0;
+                  height: 0;
+                }
+                .clipped {
+                  width: 100%;
+                  height: 350px;
+                  background: turquoise url(https://source.unsplash.com/600x600?summer);
+                  background-size: cover;
+                  clip-path: url(#my-clip-path);
+                }
+              </style>
+
+              <svg class="svg">
+                <clipPath id="my-clip-path" clipPathUnits="objectBoundingBox"><path d="M0.5,0, L1,1, H0"></path></clipPath>
+              </svg>
+
+              <div class="clipped"></div>
+
+            </div>
+          </div>
         </section>
       </main>
 
