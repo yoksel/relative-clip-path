@@ -250,10 +250,12 @@ CODE {
 
 .demo__target--before {
   background-color: teal;
+  -webkit-clip-path: url(#clip-path-before);
   clip-path: url(#clip-path-before);
 }
 .demo__target--after {
   background-color: turquoise;
+  -webkit-clip-path: url(#clip-path-after);
   clip-path: url(#clip-path-after);
 }
 
