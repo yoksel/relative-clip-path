@@ -235,7 +235,7 @@ PathConverter.prototype.addOmittedCommands = function (srcCoordsList) {
       let coords;
 
       if(handledCommands[command] && coordsList.length > keysList.length) {
-        // Fix problem with long commands A
+        // Fix problem with long commands like A
         const cuttedTail = coordsList.splice(keysList.length);
         coords = coordsList.join(',');
 
@@ -696,15 +696,17 @@ function normalizePathCoords(coords) {
     .trim()
 
     .replace(/(\d{1,})(-)/gi, '$1 $2')
-    .replace(/(\d{1,}\.\d{1,})(\.\d{1,})/gi, '$1 $2')
-    // .4.4
-    .replace(/(\.\d{1,})(\.\d{1,})/gi, '$1 $2')
     .replace(/\s00/gi, ' 0 0 ')
     .replace(/z/gi, ' ')
 
     .replace(/,\s{1,}/gi, ',')
     .replace(/\s{1,},/gi, ',')
     .replace(/\s{1,}/gi, ',');
+
+  // .345.279
+  while(result.match(/\.\d{1,}\.\d{1,}/gi)) {
+    result = result.replace(/(\.\d{1,})(\.\d{1,})/gi, '$1,$2');
+  }
 
   return result;
 }
