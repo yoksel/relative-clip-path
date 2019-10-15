@@ -82,6 +82,9 @@ const PathConverter = function (params) {
   const isAddExamples = params.addExamples;
   this.examples = examples.prod;
 
+  this.currentExamplePos = Math.floor(Math.random() * this.examples.length);
+  const randomExample = this.examples[this.currentExamplePos];
+
   if(isAddExamples) {
     this.addExamples();
   }
@@ -99,9 +102,6 @@ const PathConverter = function (params) {
   this.demoClipPathAfter = demoTargetElem.querySelector('#clip-path-after');
 
   // Add demo code
-
-  const randExamplePos = Math.floor(Math.random() * this.examples.length);
-  const randomExample = this.examples[randExamplePos];
 
   this.srcTextElem.value = randomExample;
   this.coords = randomExample;
@@ -136,8 +136,9 @@ PathConverter.prototype.addExamples = function () {
 
   examplesWrapper.classList.add('visuallyhidden');
   this.srcTextElem.parentNode.appendChild(examplesWrapper);
+  let currentControl = null;
 
-  this.examples.forEach(item => {
+  this.examples.forEach((item, index) => {
     const control = document.createElement('button');
     control.innerHTML = `<svg><path d='${item}'/></svg>`;
     examplesContainer.appendChild(control);
@@ -148,10 +149,25 @@ PathConverter.prototype.addExamples = function () {
     svg.setAttribute('viewBox', viewBox);
     control.classList.add('examples__control');
 
+    if(this.currentExamplePos === index) {
+      control.classList.add('examples__control--current');
+      currentControl = control;
+    }
+
     control.addEventListener('click', () => {
+      if(this.currentExamplePos === index) {
+        return;
+      }
+
+      currentControl.classList.remove('examples__control--current');
+
       this.srcTextElem.value = item;
       this.coords = this.srcTextElem.value;
       this.updateView();
+
+      this.currentExamplePos = index;
+      control.classList.add('examples__control--current');
+      currentControl = control;
     });
   })
 

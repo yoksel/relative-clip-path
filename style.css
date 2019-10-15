@@ -138,10 +138,18 @@ CODE {
   background: #FFF;
   border: 1px solid #CCC;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .examples__control:focus {
   outline: none;
+  box-shadow:
+    0 0 0 2px yellowgreen,
+    0 0 0 1px teal inset;
+  border-color: teal;
+}
+
+.examples__control--current {
   box-shadow: 0 0 0 2px yellowgreen;
   border-color: yellowgreen;
 }
