@@ -122,6 +122,9 @@ CODE {
 
 /* Examples
 ------------------------------ */
+.examples {
+  width: 100%;
+}
 
 .examples__container {
   display: flex;
