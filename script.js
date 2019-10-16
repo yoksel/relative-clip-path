@@ -205,7 +205,7 @@ PathConverter.prototype.updateView = function () {
   // Convert coordinates to relative
   const coordsTransformed = this.transformCoords(coordsList);
 
-  let resultPath = coordsTransformed.join(', ');
+  let resultPath = coordsTransformed.join(' ');
   this.demoClipPathAfter.innerHTML = '';
 
   if(resultPath.includes('Infinity')) {
