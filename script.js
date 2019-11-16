@@ -609,10 +609,10 @@ PathConverter.prototype.transformValuesByKeys = function (keysList, coordsList, 
     if(!keysList[index] && itemCommand !== 'a') {
       // L lets use more than two coords
       if(index % 2 == 0) {
-        return round(item/this.pathSizes.width);
+        return this.getTransformedByKey('width', item);
       }
       else {
-        return round(item/this.pathSizes.height);
+        return this.getTransformedByKey('height', item);
       }
     }
 
@@ -621,17 +621,36 @@ PathConverter.prototype.transformValuesByKeys = function (keysList, coordsList, 
     }
 
     if(keysList[index].includes('x')) {
-      return round(item/this.pathSizes.width);
+      return this.getTransformedByKey('width', item);
     }
 
     if(keysList[index].includes('y')) {
-      return round(item/this.pathSizes.height);
+      return this.getTransformedByKey('height', item);
     }
 
     return item;
   });
 
   return transformedValuesList;
+}
+
+// ---------------------------------------------
+
+PathConverter.prototype.getTransformedByKey = function (key = 'height', value) {
+  let result = 0;
+  if(key === 'width') {
+    result = round(value/this.pathSizes.width);
+  }
+  else {
+    result = round(value/this.pathSizes.height);
+  }
+
+  // Reduce of maximum coordinates to 1
+  if(result > 1) {
+    result = Math.floor(result);
+  }
+
+  return result;
 }
 
 
